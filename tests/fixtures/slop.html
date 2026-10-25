@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NightOwl｜AI 網站監控</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; background: #0b0b1a; color: #e5e7eb; }
+  a { color: inherit; text-decoration: none; }
+  nav { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 16px 48px; backdrop-filter: blur(12px); background: rgba(15, 15, 35, .6); border-bottom: 1px solid rgba(255,255,255,.08); z-index: 10; }
+  .logo { font-weight: 700; font-size: 18px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; font-size: 14px; color: #9ca3af; }
+  .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 15px; }
+  .btn-primary { background: linear-gradient(135deg, #7c3aed, #db2777); color: #fff; box-shadow: 0 10px 40px rgba(124, 58, 237, .55); }
+  .btn-secondary { background: #4f46e5; color: #fff; }
+  .hero { position: relative; overflow: hidden; text-align: center; padding: 120px 24px 100px; background: radial-gradient(circle at 50% 0%, rgba(124,58,237,.45), transparent 60%), linear-gradient(180deg, #0b0b1a, #1e1b4b); }
+  .blob { position: absolute; width: 520px; height: 520px; border-radius: 50%; background: #8b5cf6; filter: blur(120px); opacity: .5; top: -120px; left: -160px; animation: float 6s ease-in-out infinite; }
+  .blob.two { background: #06b6d4; left: auto; right: -160px; top: 80px; animation-delay: 2s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid rgba(167,139,250,.5); border-radius: 9999px; font-size: 13px; color: #c4b5fd; background: rgba(124,58,237,.15); margin-bottom: 28px; }
+  h1 { font-size: 64px; line-height: 1.1; font-weight: 800; background: linear-gradient(90deg, #a78bfa, #f472b6, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; max-width: 900px; margin: 0 auto 24px; }
+  .sub { font-size: 20px; color: #9ca3af; max-width: 640px; margin: 0 auto 40px; }
+  .ctas { display: flex; gap: 16px; justify-content: center; margin-bottom: 32px; }
+  .status { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #6b7280; }
+  .dot { position: relative; width: 10px; height: 10px; border-radius: 50%; background: #22c55e; }
+  .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: #22c55e; animation: ping 1.5s cubic-bezier(0,0,.2,1) infinite; }
+  @keyframes ping { 75%,100% { transform: scale(2.2); opacity: 0; } }
+  .stats { display: flex; justify-content: center; gap: 64px; padding: 48px 24px; border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .stat b { display: block; font-size: 36px; color: #fff; }
+  .stat span { font-size: 13px; color: #6b7280; }
+  section { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
+  .eyebrow { text-transform: uppercase; letter-spacing: .2em; font-size: 12px; color: #a78bfa; text-align: center; margin-bottom: 12px; }
+  h2 { font-size: 40px; text-align: center; margin-bottom: 56px; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { padding: 32px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(8px); box-shadow: 0 0 30px rgba(139, 92, 246, .25); }
+  .icon { font-size: 32px; margin-bottom: 16px; }
+  .card h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
+  .card p { color: #9ca3af; font-size: 15px; line-height: 1.6; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: s; }
+  .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .plan { padding: 32px; border-radius: 20px; background: #13132b; border: 1px solid rgba(255,255,255,.1); }
+  .plan .inner { margin-top: 20px; padding: 20px; border-radius: 12px; background: #1c1c3a; border: 1px solid rgba(255,255,255,.08); }
+  .plan .price { font-size: 40px; font-weight: 800; color: #fff; }
+  .plan li { list-style: none; color: #9ca3af; font-size: 14px; padding: 6px 0; }
+  .tag { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 12px; background: rgba(34,211,238,.15); color: #67e8f9; border: 1px solid rgba(34,211,238,.4); margin-bottom: 12px; }
+  footer { padding: 40px 48px; font-size: 11px; color: #3f3f5a; text-align: center; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">🦉 NightOwl</div>
+  <div class="nav-links">
+    <a href="#">功能</a><a href="#">價格</a><a href="#">文件</a>
+    <a class="btn btn-primary" href="#">立即開始</a>
+  </div>
+</nav>
+<header class="hero">
+  <div class="blob"></div><div class="blob two"></div>
+  <div class="badge">✨ New：AI 驅動的智慧告警</div>
+  <h1>次世代 AI 網站監控，Supercharge 你的可靠性</h1>
+  <p class="sub">一站式、無縫整合的監控平台，賦能你的團隊，讓停機成為過去式。</p>
+  <div class="ctas">
+    <a class="btn btn-primary" href="#">免費試用 14 天</a>
+    <a class="btn btn-secondary" href="#">預約 Demo</a>
+  </div>
+  <div class="status"><span class="dot"></span>All systems operational</div>
+</header>
+<div class="stats">
+  <div class="stat"><b>99.99%</b><span>可用性保證</span></div>
+  <div class="stat"><b>10,000+</b><span>開發者信賴</span></div>
+  <div class="stat"><b>30 秒</b><span>平均告警時間</span></div>
+</div>
+<section>
+  <div class="eyebrow">Features</div>
+  <h2>為現代團隊打造的強大功能</h2>
+  <div class="grid">
+    <div class="card"><div class="icon">⚡</div><h3>閃電般快速</h3><p>每 30 秒檢查一次你的網站，比任何競爭對手都更快發現問題。</p></div>
+    <div class="card"><div class="icon">🔔</div><h3>智慧告警</h3><p>透過 Email、Slack、簡訊與電話通知你，確保你不錯過任何事件。</p></div>
+    <div class="card"><div class="icon">📊</div><h3>深度分析</h3><p>精美的儀表板讓你掌握所有指標，用數據驅動每一個決策。</p></div>
+  </div>
+</section>
+<section>
+  <div class="eyebrow">How it works</div>
+  <h2>三個步驟，輕鬆搞定</h2>
+  <div class="steps">
+    <div class="card"><div class="icon">🔗</div><h3>1. 新增網址</h3><p>貼上你想監控的網址，我們會自動完成其餘設定與配置流程。</p></div>
+    <div class="card"><div class="icon">⚙️</div><h3>2. 設定告警</h3><p>選擇通知管道與升級規則，完全依照你的團隊工作方式調整。</p></div>
+    <div class="card"><div class="icon">😴</div><h3>3. 安心睡覺</h3><p>交給 NightOwl 守護，出事時我們會第一時間叫醒你處理問題。</p></div>
+  </div>
+</section>
+<section>
+  <div class="eyebrow">Pricing</div>
+  <h2>簡單透明的價格</h2>
+  <div class="pricing">
+    <div class="plan"><span class="tag">入門</span><div class="price">$0</div><div class="inner"><ul><li>✅ 5 個監控</li><li>✅ Email 告警</li></ul></div></div>
+    <div class="plan"><span class="tag">最受歡迎</span><div class="price">$19</div><div class="inner"><ul><li>✅ 50 個監控</li><li>✅ 電話告警</li></ul></div></div>
+    <div class="plan"><span class="tag">企業</span><div class="price">聯絡我們</div><div class="inner"><ul><li>✅ 無限監控</li><li>✅ 專屬客服</li></ul></div></div>
+  </div>
+</section>
+<footer>© 2026 NightOwl Inc. 版權所有。Trusted by world-class teams. 保留所有權利。</footer>
+</body>
+</html>

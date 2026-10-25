@@ -1,0 +1,55 @@
+{
+  "verified_on": "2026-10-19",
+  "sources": [
+    {
+      "name": "grilling",
+      "repo": "mattpocock/skills",
+      "license": "MIT",
+      "commit": "49dd158d1076134a641b33efb035946536778336",
+      "license_path": "LICENSE",
+      "license_file": "licenses/grilling.txt",
+      "license_sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+      "root_notice": "not present at inspected commit"
+    },
+    {
+      "name": "taste-skill",
+      "repo": "Leonxlnx/taste-skill",
+      "license": "MIT",
+      "commit": "a9c73c3d5dbf401e3e47f86e7b41f29ede1687df",
+      "license_path": "LICENSE",
+      "license_file": "licenses/taste-skill.txt",
+      "license_sha256": "4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df",
+      "root_notice": "not present at inspected commit"
+    },
+    {
+      "name": "open-design",
+      "repo": "nexu-io/open-design",
+      "license": "Apache-2.0",
+      "commit": "78d5637cb49da07e81314d1544b5fc6d37c95084",
+      "license_path": "LICENSE",
+      "license_file": "licenses/open-design.txt",
+      "license_sha256": "9d95806a26532623360eb84bb17d298f394b55ef73fb4c0796d99b4319b2b0da",
+      "root_notice": "not present at inspected commit"
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "license": "MIT",
+      "commit": "56ea9cf174ed86786187daa9de0e6247cb0747e4",
+      "license_path": "LICENSE",
+      "license_file": "licenses/ui-ux-pro-max.txt",
+      "license_sha256": "738f69dfa83db5c347c678fb9d90e560877059f0de93a327c39001bff92dc014",
+      "root_notice": "not present at inspected commit"
+    },
+    {
+      "name": "anthropic-frontend-design",
+      "repo": "anthropics/skills",
+      "license": "Apache-2.0",
+      "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "license_path": "skills/frontend-design/LICENSE.txt",
+      "license_file": "licenses/anthropic-frontend-design.txt",
+      "license_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "root_notice": "not present at inspected commit"
+    }
+  ]
+}

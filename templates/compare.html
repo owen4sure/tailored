@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方向比較</title>
+<!--
+  Tailored 方向比較頁。用法：
+  1. 每個方向做成同資料夾裡的獨立 HTML（例：direction-a.html）。
+  2. 修改下方 DIRECTIONS：檔名、名稱、三行說明（第一眼、為什麼適合、風險）。
+  3. 這一頁刻意保持中性的灰色外框，不要套用任何方向的風格，避免影響判斷。
+-->
+<style>
+  :root { --bg:#f4f4f2; --panel:#ffffff; --ink:#1d1d1b; --muted:#5f5f5a; --line:#d9d9d4; --focus:#1a5fd0; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.6 system-ui, "PingFang TC", "Microsoft JhengHei", sans-serif; }
+  header { display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center; padding:14px 20px; background:var(--panel); border-bottom:1px solid var(--line); }
+  h1 { font-size:17px; margin:0; font-weight:600; }
+  .group { display:flex; gap:6px; flex-wrap:wrap; }
+  button { font:inherit; padding:7px 14px; border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:8px; cursor:pointer; }
+  button[aria-pressed="true"] { background:var(--ink); color:#fff; border-color:var(--ink); }
+  button:focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+  main { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:20px; padding:20px; }
+  .stage { overflow:auto; background:#e9e9e5; border:1px solid var(--line); border-radius:10px; padding:16px; min-height:70vh; }
+  iframe { display:block; margin:0 auto; border:0; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.12); height:calc(100vh - 150px); min-height:640px; }
+  aside { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px 18px; align-self:start; }
+  aside h2 { font-size:16px; margin:0 0 10px; }
+  aside dt { color:var(--muted); font-size:13px; margin-top:10px; }
+  aside dd { margin:2px 0 0; }
+  .open { display:inline-block; margin-top:14px; color:var(--focus); }
+  @media (max-width: 900px) { main { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>方向比較</h1>
+  <div class="group" id="dirs" aria-label="方向"></div>
+  <div class="group" id="widths" aria-label="寬度"></div>
+</header>
+<main>
+  <div class="stage"><iframe id="frame" title="方向預覽"></iframe></div>
+  <aside id="info"></aside>
+</main>
+<script>
+const DIRECTIONS = [
+  { file: "direction-a.html", name: "A 主方向", look: "第一眼長什麼樣", why: "為什麼適合（對應 PRODUCT.md 的哪件事）", risk: "風險" },
+  { file: "direction-b.html", name: "B 競爭方向", look: "", why: "", risk: "" },
+  { file: "direction-c.html", name: "C 對照組", look: "", why: "", risk: "" },
+];
+const WIDTHS = [["桌機", 1440], ["筆電", 1024], ["平板", 768], ["手機", 390]];
+let current = 0, width = 1440;
+const frame = document.getElementById("frame");
+function render() {
+  const d = DIRECTIONS[current];
+  frame.src = d.file;
+  frame.style.width = width + "px";
+  document.querySelectorAll("#dirs button").forEach((b, i) => b.setAttribute("aria-pressed", i === current));
+  document.querySelectorAll("#widths button").forEach(b => b.setAttribute("aria-pressed", +b.dataset.w === width));
+  document.getElementById("info").innerHTML =
+    `<h2>${d.name}</h2><dl><dt>第一眼</dt><dd>${d.look}</dd><dt>為什麼適合</dt><dd>${d.why}</dd><dt>風險</dt><dd>${d.risk}</dd></dl>` +
+    `<a class="open" href="${d.file}" target="_blank" rel="noopener">另開完整畫面</a>`;
+}
+DIRECTIONS.forEach((d, i) => {
+  const b = document.createElement("button");
+  b.textContent = d.name; b.onclick = () => { current = i; render(); };
+  document.getElementById("dirs").appendChild(b);
+});
+WIDTHS.forEach(([label, w]) => {
+  const b = document.createElement("button");
+  b.textContent = `${label} ${w}`; b.dataset.w = w; b.onclick = () => { width = w; render(); };
+  document.getElementById("widths").appendChild(b);
+});
+render();
+</script>
+</body>
+</html>

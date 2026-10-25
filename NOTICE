@@ -1,0 +1,24 @@
+Tailored
+Copyright 2026 owen4sure and Tailored contributors
+
+This project contains a synthesis and rewritten adaptations of
+methods documented by Matt Pocock (grilling), Leonxlnx (taste-skill), Open Design
+contributors (OpenDesign), Next Level Builder (UI UX Pro Max), and Anthropic
+(frontend-design, via OpenDesign), with ideas from Impeccable. It merges the
+project owner's own design-review-loop skill, including its scripts and tests.
+
+The adaptation reorganizes these methods into product discovery, visual
+directions chosen by looking, craft guidance for websites, web apps, dashboards,
+mobile and AI products, real workflow/data contracts, and evidence-based review.
+Adaptation dates: 2026-10-19 and 2026-10-26. These are rewritten integration documents, not
+unaltered upstream skill files. The Python scanner, gate and tests were written by the
+project owner; upstream source code, datasets, media and private project
+materials are not bundled.
+
+Original MIT copyright and permission notices and the inspected Apache-2.0
+license texts are retained in licenses/. See THIRD_PARTY_NOTICES.md for the
+scope and versions. Third-party rights are not claimed by this project's authors.
+The names of upstream projects identify sources only; no endorsement,
+affiliation, certification, trademark permission or legal clearance is implied.
+
+This NOTICE is informational and does not modify any license terms.

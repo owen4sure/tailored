@@ -1,0 +1,78 @@
+{
+  "skill_name": "tailored",
+  "evals": [
+    {
+      "id": 1,
+      "name": "review-slop-landing",
+      "prompt": "幫我檢查 index.html 這個 landing page 有沒有 AI 味，不符合的地方幫我修到過關。產品事實在 PRODUCT.md。",
+      "expected_output": "跑完至少一回合掃描＋兩層審查＋閘門；修掉假膠囊、假燈號、死連結、編造數據、AI 字樣、等大三卡、紫色漸層與發光；最後閘門通過或在回合上限停下並交代剩餘問題；每回合有 report.md。",
+      "files": [
+        "tests/fixtures/slop.html"
+      ],
+      "assertions": [
+        "design-review/state.json 至少有一回合，且最後一回合 result 為 PASS 或 ESCALATE",
+        "每個回合資料夾都有 scan.json、review.json、report.md",
+        "最終 index.html 不含 href=\"#\"",
+        "最終 index.html 不含 99.99%、10,000+、Trusted by 等無出處數據",
+        "最終 index.html 不含「AI 驅動」或其他 AI 宣稱（PRODUCT.md 明定沒有 AI 功能）",
+        "最終頁面重新掃描沒有 P0 命中",
+        "最後一回合 report.md 通過 validate_punct.py"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "lite-internal-erpnext-page",
+      "prompt": "我要在 ERPNext 裡做一個倉管人員用的「今日待出貨」自訂頁面，內部用，不用花俏但要好用，先做成單一 HTML 原型給我看。倉管會在現場用平板看，最重要是知道哪幾張單今天一定要出、哪些缺料。",
+      "expected_output": "選輕量模式；只問缺的產品事實（或合理推斷並複述）；PRODUCT.md 精簡版；DESIGN.md 引用 Frappe 風格或精簡規則；產出 HTML 後跑審查迴圈直到閘門通過；不做隱喻與擲骰。",
+      "files": [],
+      "assertions": [
+        "有 PRODUCT.md，含首要任務（今天必出的單與缺料）",
+        "沒有執行 roll.py（輕量模式跳過擲骰）",
+        "產出的 HTML 經 scan.py 掃描，且有 design-review/round-1/report.md",
+        "最後一回合閘門結果為 PASS 或 ESCALATE 並說明原因"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "full-design-public-landing",
+      "prompt": "幫我從零做 NightOwl 的官網首頁，要對外見人的，不要一看就像 AI 做的。產品資料：給獨立工程師的網站監控，網站掛了會打電話叫醒你；免費 3 個網址，之後每個每月 30 元；沒有任何 AI 功能，也還沒有客戶數據可以放。",
+      "expected_output": "選完整設計模式並先說明成本；寫 PRODUCT.md；提出設計命題、4 到 6 個現實隱喻、用 roll.py 擲骰、2 到 3 個提案（含第一眼長相、理由、風險）；在使用者選定前停下（eval 時可假設選主提案）；DESIGN.md；實作；審查迴圈到閘門通過。",
+      "files": [],
+      "assertions": [
+        "有 PRODUCT.md 與 DESIGN.md",
+        "有 design-review/roll.json（擲骰紀錄）",
+        "提案中每個都有第一眼長相、設計理由、風險",
+        "最終頁面沒有編造數據，也沒有 AI 宣稱",
+        "最後一回合閘門結果為 PASS"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ai-platform-oneshot-directions",
+      "prompt": "幫我做公司內部地端 AI 平台的「模型試用」頁，同仁用公司帳號登入、輸入問題拿到回答，這頁不保存內容。直接做完給我看。",
+      "expected_output": "寫出 PRODUCT.md；擲骰選主方向；做出 2 到 3 個同內容、至少三個面向不同的 HTML 方向，放進比較頁；照 craft.md 與 ai-products.md 實作（逐字回答可停止、模式有白話說明、不保存的提示、真實狀態）；四種寬度截圖與掃描；交付時請使用者選方向。",
+      "files": [],
+      "assertions": [
+        "專案根目錄有 PRODUCT.md",
+        "design-review/roll.json 存在",
+        "至少有兩個方向的 HTML，以及一個比較頁",
+        "方向之間不是只換顏色（版面結構、字體或密度至少一項不同）",
+        "回答區在送出後可以停止",
+        "沒有深色玻璃卡加發光按鈕，除非使用者選了這個方向",
+        "交付訊息請使用者回答：最接近哪個、哪裡不喜歡、想借哪些"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "visual-preference-by-looking",
+      "prompt": "我要做一個給業務用的客戶管理後台，你先問我需要知道的事。",
+      "expected_output": "只問產品事實（誰用、首要任務、有與沒有的功能、禁區），每題附背景與建議答案；不問配色、字體、外框強弱這類抽象視覺問題，改說明之後會做幾個方向讓使用者看了再選。",
+      "files": [],
+      "assertions": [
+        "提問中沒有要使用者選配色、字體或外框",
+        "每題附建議答案",
+        "說明視覺方向會做成看得到的畫面讓使用者挑"
+      ]
+    }
+  ]
+}

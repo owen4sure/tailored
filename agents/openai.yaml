@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tailored"
+  short_description: "量身打造、不像 AI 做的介面：先看方向再選，照基本功實作，獨立審查修到過關"
+  default_prompt: "使用 $tailored 設計這個畫面：先查產品事實，做 2 到 3 個看得到的方向讓我挑，再照基本功實作並審查到過關。"

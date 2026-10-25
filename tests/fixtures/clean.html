@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>守夜｜網站掛了就打電話叫醒你</title>
+<style>
+  :root { --bg: #111315; --panel: #181b1e; --line: #2a2f34; --ink: #e8eaed; --muted: #a9b0b8; --alarm: #ff5a4f; --ok: #5fd08a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; background: var(--bg); color: var(--ink); font-size: 17px; line-height: 1.65; }
+  a { color: var(--ink); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+  .name { font-weight: 700; font-size: 18px; }
+  .top a { font-size: 16px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; padding: 72px 0 88px; }
+  h1 { font-size: 52px; line-height: 1.15; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 20px; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 30em; margin-bottom: 32px; }
+  .cta { display: inline-block; background: var(--alarm); color: #1a0c0b; font-weight: 700; font-size: 17px; padding: 14px 26px; border-radius: 6px; text-decoration: none; }
+  .cta-note { display: block; margin-top: 14px; font-size: 15px; color: var(--muted); }
+  .console { border: 1px solid var(--line); border-radius: 6px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 15px; }
+  .console .row { display: flex; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--muted); }
+  .console .row:last-child { border-bottom: 0; }
+  .console .row.down { color: var(--ink); background: #2a1514; }
+  .console .row.down b { color: var(--alarm); }
+  .console .call { padding: 14px 16px; color: var(--ink); border-top: 2px solid var(--alarm); }
+  h2 { font-size: 32px; line-height: 1.25; margin-bottom: 16px; }
+  .how { padding: 72px 0; border-top: 1px solid var(--line); }
+  .how ol { margin: 24px 0 0 1.2em; max-width: 40em; }
+  .how li { margin-bottom: 12px; color: var(--muted); }
+  .how li strong { color: var(--ink); }
+  .main-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 72px 0; border-top: 1px solid var(--line); }
+  .main-feature p { color: var(--muted); }
+  .others { padding: 0 0 72px; color: var(--muted); }
+  .others ul { margin: 12px 0 0 1.2em; }
+  .price { padding: 72px 0; border-top: 1px solid var(--line); }
+  .price p { color: var(--muted); max-width: 36em; }
+  footer { padding: 32px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+  @media (max-width: 760px) {
+    .hero, .main-feature { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
+    h1 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="name">守夜</span>
+    <a href="/login">登入</a>
+  </header>
+  <section class="hero">
+    <div>
+      <h1>網站半夜掛了，<br>它會打電話叫醒你。</h1>
+      <p class="lead">給自己顧網站的獨立工程師。平常它安靜地每分鐘檢查一次；同一個網址連續兩次失敗，就直接撥你的手機，接起來會念出是哪個服務、回了什麼錯誤。</p>
+      <a class="cta" href="/signup">加入第一個網址</a>
+      <span class="cta-note">免費監控 3 個網址，不用綁信用卡。</span>
+    </div>
+    <div class="console" aria-label="告警發生時的主控台畫面">
+      <div class="row"><span>shop.example.com</span><span>200　142 ms</span></div>
+      <div class="row down"><span>api.example.com</span><b>503　連續 2 次失敗</b></div>
+      <div class="row"><span>blog.example.com</span><span>200　88 ms</span></div>
+      <div class="call">03:12　撥打 0912 345 678　等待接聽</div>
+    </div>
+  </section>
+  <section class="how" id="how">
+    <h2>出事的那一分鐘會發生什麼</h2>
+    <ol>
+      <li><strong>確認不是誤報：</strong>第一次失敗時先從另一個地區重測，兩邊都失敗才算真的掛了。</li>
+      <li><strong>打電話，不只是推播：</strong>撥你的手機，語音念出網址與錯誤碼。沒接就 3 分鐘後再打。</li>
+      <li><strong>恢復時告訴你：</strong>網站回來後傳一則簡訊，附上停機了幾分鐘。</li>
+    </ol>
+  </section>
+  <section class="main-feature">
+    <div>
+      <h2>為什麼是電話</h2>
+      <p>推播和 Email 在凌晨三點會被勿擾模式吃掉。電話可以設定為緊急聯絡人來電，勿擾也擋不住。這是守夜唯一堅持的事。</p>
+    </div>
+    <div>
+      <h2>平常不吵你</h2>
+      <p>沒出事的時候，守夜不寄週報、不發成就徽章、不推「你的網站很健康」。它只在需要你的時候出現。</p>
+    </div>
+  </section>
+  <section class="others">
+    <p>其他你會用到的：</p>
+    <ul>
+      <li>HTTP 狀態碼與回應時間檢查</li>
+      <li>SSL 憑證到期前 14 天提醒</li>
+      <li>維護時段靜音</li>
+    </ul>
+  </section>
+  <section class="price" id="price">
+    <h2>價格</h2>
+    <p>3 個網址以內免費。超過之後每個網址每月 30 元，電話費另計，按實際撥出次數收。</p>
+  </section>
+  <footer>守夜是一人公司，有問題直接寫信到 <a href="mailto:hi@example.com">hi@example.com</a>，我自己回。</footer>
+</div>
+</body>
+</html>

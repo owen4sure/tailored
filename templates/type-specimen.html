@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>字體樣張</title>
+<!--
+  Tailored 字體樣張。用法：
+  1. 依 references/typography.md 選出 2 到 3 組配對，改下方 PAIRS（字體名稱要跟 Google Fonts 上的一模一樣，字重要是那個字體有的）。
+  2. 改 CONTENT，放這個產品的真實內容：頁面標題、一段內文、一組數字、一列表格。
+  3. 每組的 bg、ink 換成該方向的底色與字色；外框保持中性，不要套用任何一組的風格。
+  4. 內網專案若不能連 Google Fonts，把字體檔放在同一個資料夾，改用 @font-face 載入。
+-->
+<style>
+  :root { --bg:#f4f4f2; --panel:#ffffff; --ink:#1d1d1b; --muted:#5f5f5a; --line:#d9d9d4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.6 system-ui, "PingFang TC", "Microsoft JhengHei UI", sans-serif; font-synthesis:none; }
+  header { padding:20px 24px 8px; }
+  header h1 { font-size:18px; margin:0 0 4px; }
+  header p { margin:0; color:var(--muted); }
+  main { display:grid; gap:20px; padding:16px 24px 40px; }
+  .pair { display:grid; grid-template-columns:240px minmax(0,1fr); gap:24px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .meta h2 { font-size:16px; margin:0 0 6px; }
+  .meta dl { margin:0; font-size:13px; }
+  .meta dt { color:var(--muted); margin-top:8px; }
+  .meta dd { margin:0; }
+  .sheet { border-radius:8px; padding:28px 32px; display:grid; gap:16px; }
+  .sheet .title { line-height:1.2; margin:0; }
+  .sheet .body { margin:0; max-width:36em; }
+  .sheet .nums { font-variant-numeric:tabular-nums; }
+  .sheet table { border-collapse:collapse; width:100%; }
+  .sheet td { padding:8px 12px 8px 0; border-top:1px solid currentColor; border-color:rgba(127,127,127,.25); }
+  .sheet td.r { text-align:right; font-variant-numeric:tabular-nums; }
+  .sheet .code { opacity:.75; }
+  @media (max-width:800px) { .pair { grid-template-columns:1fr; } .sheet { padding:20px; } }
+</style>
+</head>
+<body>
+<header><h1>字體樣張</h1><p>同一份內容，換三組字體。請挑看起來最對的一組，也可以說「A 的標題配 B 的內文」。</p></header>
+<main id="main"></main>
+<script>
+// 每組：名稱、為什麼、中文字體、西文字體、等寬字體、標題與內文字重、標題字級、底色與字色
+const PAIRS = [
+  { name:"A　穩重的系統字", why:"每天使用、數字多", zh:"Noto Sans TC", latin:"Inter", mono:"JetBrains Mono", titleWeight:600, bodyWeight:400, titleSize:28, bg:"#ffffff", ink:"#1b1a17" },
+  { name:"B　細明體", why:"安靜、高級", zh:"Noto Serif TC", latin:"Cormorant Garamond", mono:"", titleWeight:200, bodyWeight:400, titleSize:44, bg:"#17110c", ink:"#ece4d6" },
+  { name:"C　親切的圓體", why:"溫和、好親近", zh:"Chiron GoRound TC", latin:"Nunito", mono:"", titleWeight:600, bodyWeight:400, titleSize:32, bg:"#eef4f1", ink:"#17312a" },
+];
+const CONTENT = {
+  title: "這裡放真實的頁面標題",
+  body: "這裡放一段真實的內文，長度約兩到三行，讓人看得出段落的灰度與行距。",
+  nums: "NT$ 12,860　1,600 公尺　2026/10/26（一）",
+  row: ["EX-2610-0142", "北區淨水廠現場勘查", "12,860"],
+};
+const fam = n => n.replace(/ /g, "+");
+// 每個字體只要求實際用到的字重；要求字體沒有的字重，Google Fonts 會整個連結失效
+const W = {};
+PAIRS.forEach(p => { [p.zh, p.latin].forEach(f => { W[f] = W[f] || new Set(); W[f].add(p.titleWeight); W[f].add(p.bodyWeight); }); if (p.mono) { W[p.mono] = W[p.mono] || new Set(); W[p.mono].add(400); } });
+const link = document.createElement("link");
+link.rel = "stylesheet";
+link.href = "https://fonts.googleapis.com/css2?" + Object.entries(W).map(([f, ws]) => "family=" + fam(f) + ":wght@" + [...ws].sort((x, y) => x - y).join(";")).join("&") + "&display=swap";
+document.head.appendChild(link);
+// 字體清單用單引號，因為會放進 style="" 屬性裡
+const stack = (p, mono) => mono ? `'${p.mono}', monospace` : `'${p.latin}', '${p.zh}', 'PingFang TC', 'Microsoft JhengHei UI', sans-serif`;
+document.getElementById("main").innerHTML = PAIRS.map(p => `
+  <section class="pair">
+    <div class="meta"><h2>${p.name}</h2><dl><dt>適合</dt><dd>${p.why}</dd><dt>中文</dt><dd>${p.zh}</dd><dt>西文與數字</dt><dd>${p.latin}</dd>${p.mono ? `<dt>等寬</dt><dd>${p.mono}</dd>` : ""}<dt>字重</dt><dd>標題 ${p.titleWeight}、內文 ${p.bodyWeight}</dd></dl></div>
+    <div class="sheet" style="background:${p.bg};color:${p.ink};font-family:${stack(p)};font-weight:${p.bodyWeight}">
+      <p class="title" style="font-size:${p.titleSize}px;font-weight:${p.titleWeight}">${CONTENT.title}</p>
+      <p class="body">${CONTENT.body}</p>
+      <div class="nums">${CONTENT.nums}</div>
+      <table><tr><td class="code" style="font-family:${p.mono ? stack(p, true) : "inherit"}">${CONTENT.row[0]}</td><td>${CONTENT.row[1]}</td><td class="r">${CONTENT.row[2]}</td></tr></table>
+    </div>
+  </section>`).join("");
+</script>
+</body>
+</html>
